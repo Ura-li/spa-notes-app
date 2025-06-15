@@ -1,0 +1,313 @@
+/* Reset default margin dan padding untuk seluruh elemen */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Pengaturan body secara umum */
+body {
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s ease; /* Transisi latar belakang */
+}
+
+/* Pengaturan container dengan padding dan margin */
+.container {
+  padding-inline: 32px;
+  margin-inline: auto;
+  max-width: 1300px;
+}
+
+/* Header dengan background warna */
+header {
+  background-color: lightskyblue;
+}
+
+.main-header {
+  min-height: 90px;
+  padding-block: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Logo aplikasi */
+.brand-name {
+  font-size: 1.125rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Pengaturan untuk navigation drawer */
+.navigation-drawer {
+  min-height: 100vh;
+  width: 200px;
+  padding: 20px 10px;
+  background-color: #fff;
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  box-shadow: 0 0 4px 2px #00000033;
+  transform: translateX(-100%);
+  transition: transform 350ms ease-in-out; /* Transisi halus untuk drawer */
+  z-index: 9999;
+}
+
+.navigation-drawer.open {
+  transform: translateX(0);
+}
+
+/* Tombol untuk membuka navigation drawer */
+.drawer-button {
+  padding: 8px;
+  border: 0;
+  border-radius: 4px;
+  display: inline-block;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 28px;
+  color: #141e16;
+  cursor: pointer;
+}
+
+/* Styling untuk navigasi */
+.nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px 20px;
+}
+
+.nav-list li a {
+  padding: 6px 10px;
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+
+.nav-list li a:hover {
+  text-decoration: underline;
+}
+
+/* Styling untuk konten utama */
+.main-content {
+  padding-block: 20px;
+  opacity: 0; /* Menyembunyikan konten pertama kali */
+  transition: opacity 1s ease; /* Menambahkan transisi untuk konten */
+}
+
+/* Efek transisi untuk konten utama saat halaman dimuat */
+.main-content.visible {
+  opacity: 1;
+}
+
+/* Styling untuk setiap item cerita */
+.story-item {
+  background-color: #f1f1f1;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.story-item h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.story-item p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Pengaturan media query untuk layar besar */
+@media screen and (width > 1000px) {
+  .navigation-drawer {
+    min-height: auto;
+    width: auto;
+    padding: 0;
+    background-color: transparent;
+    flex-direction: row;
+    justify-content: space-between;
+    position: static;
+    box-shadow: none;
+    transform: translateX(0);
+  }
+
+  .nav-list {
+    flex-direction: row;
+  }
+
+  .nav-list li a {
+    display: inline-block;
+  }
+
+  .drawer-button {
+    display: none;
+  }
+}
+
+/* Pengaturan untuk tampilan mobile */
+@media screen and (max-width: 768px) {
+  .main-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .container {
+    padding-inline: 16px;
+  }
+
+  .main-content {
+    padding-block: 16px;
+  }
+
+  .navigation-drawer {
+    width: 70%;
+    max-width: 250px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 300ms ease-in-out;
+    background-color: #fff;
+  }
+
+  .navigation-drawer.open {
+    transform: translateX(0);
+  }
+
+  .drawer-button {
+    display: inline-block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-list li a {
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  input, textarea, button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #map {
+    width: 100%;
+    height: 200px;
+    margin-top: 10px;
+  }
+}
+
+/* Styling untuk tombol Skip to Content */
+.skip-link {
+  position: absolute;
+  top: -40px; /* Menyembunyikan tombol di luar layar */
+  left: 0;
+  z-index: 1000;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Menampilkan tombol Skip to Content saat difokuskan */
+.skip-link:focus {
+  top: 0; /* Menampilkan tombol saat difokuskan */
+  outline: 2px solid #fff; /* Menambahkan outline agar mudah terlihat */
+  background-color: #333; /* Warna latar belakang saat fokus */
+}
+
+/* Tambahkan ke styles.css atau file global CSS */
+.offline-stories {
+  padding: 1rem;
+}
+
+.stories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.story-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.story-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.story-content {
+  padding: 1rem;
+}
+
+.story-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.2rem;
+}
+
+.story-description {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.delete-btn {
+  padding: 0.5rem 1rem;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+/* styles.css */
+
+#btnSubscribe {
+  padding: 0.4em 1em;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* biru */
+  color: white;
+  transition: background-color 0.3s ease;
+  margin-left: 1rem;
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+  border: 2px solid red;
+}
+
+#btnSubscribe.subscribed {
+  background-color: #28a745; /* hijau */
+}
+
+@media screen and (max-width: 768px) {
+  #btnSubscribe {
+    display: inline-block;
+  }
+}
+
