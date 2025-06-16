@@ -48,6 +48,6 @@ module.exports = merge(common, {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
     clean: true,
-    publicPath: '/coba5/',
+    publicPath: '/',
   },
 });

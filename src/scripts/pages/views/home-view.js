@@ -46,7 +46,7 @@ export default class StoriesDashboardView {
       this.storyMapInstance.remove(); // reset if re-rendering
     }
 
-    this.storyMapInstance = L.map('story-map-display').setView([-6.9, 109.1], 6); // Fokus area Indonesia (misal Guci, Tegal)
+    this.storyMapInstance = L.map('story-map-display').setView([-6.9, 109.1], 6); 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap contributors',
