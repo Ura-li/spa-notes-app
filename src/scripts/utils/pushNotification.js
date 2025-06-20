@@ -40,6 +40,16 @@ export async function initPushNotification() {
 
         updateButton(subscription);
         console.log('Push notification subscribed:', subscription);
+
+        await fetch('https://story-api.dicoding.dev/v1/notifications/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            subscription: subscription,
+          }),
+        });
       }
     });
   } catch (error) {
