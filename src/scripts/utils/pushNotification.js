@@ -6,14 +6,20 @@ export async function initPushNotification() {
   if (!btnSubscribe) return; 
 
   try {
-    const registration = await navigator.serviceWorker.ready;
-    let subscription = await registration.pushManager.getSubscription();
-
     
-    updateButton(subscription);
-
     
     btnSubscribe.addEventListener('click', async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Login terlebih dahulu untuk mengaktifkan notifikasi.');
+        return;
+      }
+      
+      const registration = await navigator.serviceWorker.ready;
+      let subscription = await registration.pushManager.getSubscription();
+  
+      
+      updateButton(subscription);
       if (subscription) {
         
         await subscription.unsubscribe();
@@ -41,15 +47,27 @@ export async function initPushNotification() {
         updateButton(subscription);
         console.log('Push notification subscribed:', subscription);
 
+        const token = localStorage.getItem('token');
+        const subscriptionJson = subscription.toJSON(); 
+
         await fetch('https://story-api.dicoding.dev/v1/notifications/subscribe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            subscription: subscription,
+            endpoint: subscriptionJson.endpoint,
+            keys: {
+              auth: subscriptionJson.keys.auth,
+              p256dh: subscriptionJson.keys.p256dh,
+            },
+
           }),
         });
+
+        updateButton(subscription);
+        console.log('Push notification subscribed:', subscriptionJson);
       }
     });
   } catch (error) {

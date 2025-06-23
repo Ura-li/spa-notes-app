@@ -5,13 +5,11 @@ import { clientsClaim } from 'workbox-core';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
 
+
 self.skipWaiting();
 clientsClaim();
 
-precacheAndRoute([
-  { url: '/', revision: null },
-  ...(self.__WB_MANIFEST || [])
-]);
+precacheAndRoute(self.__WB_MANIFEST || []);
 
 registerRoute(
   ({ request: networkRequest }) => networkRequest.mode === 'navigate',

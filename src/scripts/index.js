@@ -5,6 +5,9 @@ import routes from './routes/routes';
 import { initPushNotification } from './utils/pushNotification';
 
 let currentPresenter = null;
+console.log('🔁 Hash sekarang:', window.location.hash);
+console.log('🧠 Bundle aktif!');
+
 
 const app = new App({
   content: document.querySelector('#main-content'),
@@ -48,7 +51,11 @@ const initSkipLink = () => {
 
 // Render halaman
 const renderPage = async () => {
+
   const activeRoute = getActiveRoute(window.location.hash);
+
+   console.log('🔍 Hash:', window.location.hash); // tambahkan ini
+  console.log('📍 Parsed route:', activeRoute); // dan ini
   const PresenterClass = routes[activeRoute] || routes['/'];
 
   // Bersihkan presenter sebelumnya
@@ -67,6 +74,7 @@ const renderPage = async () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🏁 DOM ready');
   initSkipLink();
 
   // ✅ Register Service Worker dan inisialisasi push
@@ -75,14 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
       navigator.serviceWorker.register('./sw.js', { scope: './' })
         .then((registration) => {
           console.log('✅ Service Worker terdaftar:', registration);
-
-          if (localStorage.getItem('token')) {
-            initPushNotification();
-          }
+          
         })
+        
         .catch((error) => {
           console.error('❌ Gagal mendaftarkan Service Worker:', error);
         });
+        initPushNotification();
     });
   }
 

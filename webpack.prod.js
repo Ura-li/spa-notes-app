@@ -38,6 +38,7 @@ module.exports = merge(common, {
       ],
     }),
 
+
     new InjectManifest({
       swSrc: path.resolve(__dirname, './src/public/sw.js'), // file service worker custom-mu
       swDest: 'sw.js',
