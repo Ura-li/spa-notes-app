@@ -1,5 +1,6 @@
 import NewStoryModel from '../models/add-story-model.js';
 import CreateStoryView from '../views/add-story-view.js';
+import StoriesOverviewPresenter from './home-presenter.js';
 
 export default class NewStoryPresenter {
   constructor() {
@@ -41,10 +42,14 @@ export default class NewStoryPresenter {
           icon: './icons/placeholder.png', // Ganti dengan ikon yang tersedia di proyekmu
         });
       }
-
       setTimeout(() => {
-        window.location.hash = '/';
+        this.storyCreationView.showSuccessMessage('Cerita berhasil ditambahkan!');
+        setTimeout(() => {
+          const channel = new BroadcastChannel('push_channel');
+          channel.postMessage({ type: 'NEW_STORY' });
+        }, 500);
       }, 1500);
+
     } catch (error) {
       this.storyCreationView.displayFeedbackMessage(error.message, true);
     }

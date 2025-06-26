@@ -7,12 +7,18 @@ export default class StoriesOverviewPresenter {
     this.displayView = new StoriesDashboardView();
 
     this.displayView.displayLoadingState();
+    console.log('[DEBUG] HomePresenter constructor dipanggil');
 
     // Inisialisasi channel komunikasi dengan service worker
     this.broadcastChannel = new BroadcastChannel('push_channel');
     this.broadcastChannel.addEventListener('message', this.handleIncomingPushMessage.bind(this));
+  }
 
-    this.fetchAndDisplayStories();
+  async init() {
+    
+    console.log('[DEBUG] HomePresenter init dipanggil');
+    this.displayView.displayLoadingState();
+    await this.fetchAndDisplayStories();
   }
 
   async fetchAndDisplayStories() {
@@ -25,6 +31,7 @@ export default class StoriesOverviewPresenter {
       }
 
       const allStories = await this.dataFetcherModel.retrieveAllStories(userAuthenticationToken);
+      console.log('[DEBUG] Story dari API:', allStories);
       this.displayView.renderStoryListAndMap(allStories);
     } catch (error) {
       this.displayView.displayErrorMessage(error.message);
@@ -36,6 +43,8 @@ export default class StoriesOverviewPresenter {
     if (eventData.data?.type === 'NEW_STORY') {
       // Reload daftar cerita terbaru
       await this.fetchAndDisplayStories();
+
+      // console.log('Data setelah fetch ulang:', allStories);
 
       // Tampilkan notifikasi UI di halaman
       this.displayView.displayNewStoryNotification('Ada cerita baru!');

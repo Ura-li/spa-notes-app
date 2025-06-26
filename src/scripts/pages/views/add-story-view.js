@@ -119,4 +119,9 @@ export default class CreateStoryView {
       this.leafletMap = null;
     }
   }
+
+  showSuccessMessage(message) {
+    this.displayFeedbackMessage(message);
+    window.location.hash = '/'; // Kembali ke halaman utama setelah sukses
+  }
 }

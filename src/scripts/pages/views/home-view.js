@@ -24,6 +24,7 @@ export default class StoriesDashboardView {
             .map(
               (item) => `
                 <article class="story-item">
+                  <img src="${item.photoUrl}" alt="${item.name}" class="story-image" />
                   <h3>${item.name}</h3>
                   <p>${item.description}</p>
                   <small>${new Date(item.createdAt).toLocaleString()}</small>
